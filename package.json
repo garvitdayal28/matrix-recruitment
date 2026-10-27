@@ -1,0 +1,21 @@
+{
+  "name": "matrix-recruitment",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --test lib/fields.test.ts lib/track.test.ts"
+  },
+  "dependencies": {
+    "mongodb": "^7.7.0",
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
