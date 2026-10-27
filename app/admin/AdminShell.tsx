@@ -7,12 +7,13 @@ import Alert from "../Alert";
 import Mark from "../Mark";
 
 const KEY = "matrix-admin-key";
+const ROLE = "matrix-admin-role";
 export const adminKey = () => sessionStorage.getItem(KEY) ?? "";
 export const adminFetch = (url: string, key = adminKey()) => fetch(url, { headers: { "x-admin-key": key }, cache: "no-store" });
 
 const TABS = [
   { href: "/admin", label: "Applications" },
-  { href: "/admin/stats", label: "Visitor stats" },
+  { href: "/admin/stats", label: "Visitor stats", master: true },
 ];
 
 // Key login + header shared by the admin pages. `url` is the page's data endpoint.
@@ -21,6 +22,7 @@ export default function AdminShell<T>({ url, children }: { url: string; children
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [booting, setBooting] = useState(true);
+  const [role, setRole] = useState("");
   const path = usePathname();
 
   async function load(key: string) {
@@ -33,9 +35,16 @@ export default function AdminShell<T>({ url, children }: { url: string; children
         setData(null);
         throw new Error("That key is wrong. Check it and try again.");
       }
+      if (res.status === 403) {
+        setData(null);
+        throw new Error("This page needs the master key. Enter it to continue.");
+      }
       if (!res.ok) throw new Error("Could not load data. Try again.");
       setData(await res.json());
+      const r = res.headers.get("x-admin-role") ?? "";
       sessionStorage.setItem(KEY, key);
+      sessionStorage.setItem(ROLE, r);
+      setRole(r);
     } catch (e) {
       setError((e as Error).message);
     }
@@ -60,7 +69,7 @@ export default function AdminShell<T>({ url, children }: { url: string; children
       >
         <Mark className="mark" />
         <h2>MATRIX admin</h2>
-        <p>Enter the admin key to see applications and visitor stats.</p>
+        <p>Enter your admin key. The master key also opens visitor stats.</p>
         <input type="password" name="key" required autoFocus aria-label="Admin key" />
         {error && <Alert onClose={() => setError("")}>{error}</Alert>}
         <button className="btn" disabled={loading}>
@@ -79,7 +88,7 @@ export default function AdminShell<T>({ url, children }: { url: string; children
           MATRIX
         </span>
         <nav className="admin-tabs" aria-label="Admin pages">
-          {TABS.map((t) => (
+          {TABS.filter((t) => !t.master || role === "master").map((t) => (
             <Link key={t.href} href={t.href} aria-current={path === t.href ? "page" : undefined}>
               {t.label}
             </Link>
@@ -93,6 +102,7 @@ export default function AdminShell<T>({ url, children }: { url: string; children
             className="btn small line"
             onClick={() => {
               sessionStorage.removeItem(KEY);
+              sessionStorage.removeItem(ROLE);
               setData(null);
             }}
           >

@@ -7,11 +7,10 @@ import FilePicker from "./FilePicker";
 import Select from "./Select";
 import { fieldFilled, sessionId, track } from "./Tracker";
 
-// Shown only after a successful submission.
-const WHATSAPP_GROUP = "https://chat.whatsapp.com/JzOn0dpvGxh0eYtgUrivFb";
-
 export default function ApplyForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  // WhatsApp group link, returned by /api/apply only after a successful submission.
+  const [whatsapp, setWhatsapp] = useState("");
   const [error, setError] = useState("");
   const [branchMissing, setBranchMissing] = useState(false);
   const done = useRef<HTMLDivElement>(null);
@@ -47,6 +46,7 @@ export default function ApplyForm() {
       const res = await fetch("/api/apply", { method: "POST", body: fd });
       if (res.ok) {
         track("submitted");
+        setWhatsapp((await res.json().catch(() => null))?.whatsapp ?? "");
         return setStatus("done");
       }
       fail((await res.json().catch(() => null))?.error ?? "Something went wrong. Please try again.");
@@ -64,10 +64,16 @@ export default function ApplyForm() {
           <path d="M15 27l7 7 15-16" pathLength={1} />
         </svg>
         <h2>Application submitted</h2>
-        <p>Thanks for applying to MATRIX. Join the WhatsApp group for applicants. Next steps will be shared there.</p>
-        <a className="btn" href={WHATSAPP_GROUP} target="_blank" rel="noreferrer">
-          Join the WhatsApp group
-        </a>
+        {whatsapp ? (
+          <>
+            <p>Thanks for applying to MATRIX. Join the WhatsApp group for applicants. Next steps will be shared there.</p>
+            <a className="btn" href={whatsapp} target="_blank" rel="noreferrer">
+              Join the WhatsApp group
+            </a>
+          </>
+        ) : (
+          <p>Thanks for applying to MATRIX. We&apos;ll message you on WhatsApp with the next steps.</p>
+        )}
       </div>
     );
   }

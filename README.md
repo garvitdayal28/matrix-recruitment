@@ -8,7 +8,7 @@ Built with Next.js and MongoDB Atlas (applications in a collection, portfolio fi
 
 ```bash
 npm install
-cp .env.example .env   # then fill in MONGODB_URI and ADMIN_SECRET
+cp .env.example .env   # then fill in the values (see comments in the file)
 npm run dev            # http://localhost:3000
 npm test               # validation and stats unit tests
 ```
@@ -19,10 +19,10 @@ npm test               # validation and stats unit tests
 - `/admin`: applications, split into tables by year, domain or branch, with filters and CSV export
 - `/admin/stats`: visitor stats: traffic sources, devices, time on site, how far people scroll, form drop-off, half-filled forms and developer-link clicks
 
-Both admin pages need the `ADMIN_SECRET` key.
+`ADMIN_SECRET` opens applications. `ADMIN_MASTER_SECRET` also opens visitor stats.
 
 ## Deploy
 
-Deploy to Vercel and set `MONGODB_URI` and `ADMIN_SECRET` as environment variables. In Atlas, allow network access from `0.0.0.0/0`, because Vercel has no fixed IPs.
+Deploy to Vercel and set `MONGODB_URI`, `ADMIN_SECRET`, `ADMIN_MASTER_SECRET` and `WHATSAPP_GROUP_URL` as environment variables. In Atlas, allow network access from `0.0.0.0/0`, because Vercel has no fixed IPs.
 
 Developed by [Garvit Dayal](https://www.linkedin.com/in/garvit-dayal-74537a370/).

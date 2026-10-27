@@ -63,5 +63,6 @@ export async function POST(req: Request) {
   if (typeof sid === "string" && /^[0-9a-f-]{36}$/.test(sid)) {
     await (await sessions()).updateOne({ sid }, { $set: { applicantEmail: data.email } }).catch((e) => console.error(e));
   }
-  return Response.json({ ok: true }, { status: 201 });
+  // The group link lives in env and is only handed out after a successful submission.
+  return Response.json({ ok: true, whatsapp: process.env.WHATSAPP_GROUP_URL ?? "" }, { status: 201 });
 }
