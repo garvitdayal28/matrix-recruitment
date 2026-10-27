@@ -37,7 +37,8 @@ export const files = async () => new GridFSBucket(await db(), { bucketName: "por
 const digest = (s: string) => createHash("sha256").update(s).digest();
 const matches = (key: string, secret?: string) => !!secret && timingSafeEqual(digest(key), digest(secret));
 
-// "master" also sees visitor stats; "admin" sees applications only. Without a master key, the admin key is master.
+// Both roles see applications and visitor stats; only "master" also sees developer-link clicks.
+// Without a master key, the admin key is master.
 export function adminRole(req: Request): "master" | "admin" | null {
   const key = req.headers.get("x-admin-key") ?? "";
   const master = process.env.ADMIN_MASTER_SECRET;

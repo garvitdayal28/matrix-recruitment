@@ -19,7 +19,7 @@ npm test               # validation and stats unit tests
 - `/admin`: applications, split into tables by year, domain or branch, with filters and CSV export
 - `/admin/stats`: visitor stats: traffic sources, devices, time on site, how far people scroll, form drop-off, half-filled forms and developer-link clicks
 
-`ADMIN_SECRET` opens applications. `ADMIN_MASTER_SECRET` also opens visitor stats.
+`ADMIN_SECRET` and `ADMIN_MASTER_SECRET` both open applications and visitor stats. Only the master key sees developer LinkedIn clicks.
 
 ## Deploy
 

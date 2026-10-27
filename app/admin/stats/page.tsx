@@ -13,11 +13,14 @@ const ago = (d: string | Date) => {
   return m < 1 ? "just now" : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} d ago`;
 };
 
+// devLinkedin is only sent for the master key.
+type StatsData = Omit<Stats, "devLinkedin"> & { devLinkedin?: Stats["devLinkedin"] };
+
 export default function StatsPage() {
-  return <AdminShell<Stats> url="/api/admin/stats">{(s) => <Dashboard s={s} />}</AdminShell>;
+  return <AdminShell<StatsData> url="/api/admin/stats">{(s) => <Dashboard s={s} />}</AdminShell>;
 }
 
-function Dashboard({ s }: { s: Stats }) {
+function Dashboard({ s }: { s: StatsData }) {
   const t = s.totals;
   return (
     <>
@@ -40,33 +43,7 @@ function Dashboard({ s }: { s: Stats }) {
             <Tile label="Avg. time on site" value={dur(t.avgActiveMs)} sub={`Median ${dur(t.medianActiveMs)}`} />
           </div>
 
-          <Panel
-            title="Developer LinkedIn clicks"
-            note={`${s.devLinkedin.clicks} ${s.devLinkedin.clicks === 1 ? "click" : "clicks"} from ${s.devLinkedin.visitors} ${s.devLinkedin.visitors === 1 ? "visitor" : "visitors"} on "Developed by Garvit Dayal". Visitors are anonymous unless they also applied.`}
-          >
-            {s.devLinkedin.list.length ? (
-              <div className="table-wrap">
-                <table>
-                  <thead>
-                    <tr><th>Last click</th><th>Who</th><th>Source</th><th>Device</th><th>Clicks</th></tr>
-                  </thead>
-                  <tbody>
-                    {s.devLinkedin.list.map((c, i) => (
-                      <tr key={i}>
-                        <td className="nowrap">{ago(c.at)}</td>
-                        <td>{c.applicant || <span className="muted">Anonymous visitor</span>}</td>
-                        <td className="cap">{c.source}</td>
-                        <td className="cap">{c.device}</td>
-                        <td>{c.clicks}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="muted">No clicks yet.</p>
-            )}
-          </Panel>
+          {s.devLinkedin && <LinkedinPanel d={s.devLinkedin} />}
 
           <Panel title="Visits per day" note="Last 14 days, India time. Hover a bar for details.">
             <DayChart days={s.daily} />
@@ -128,6 +105,39 @@ function Dashboard({ s }: { s: Stats }) {
         Facebook app traffic is detected automatically.
       </p>
     </>
+  );
+}
+
+// Master key only: clicks on "Developed by Garvit Dayal" in the footer.
+function LinkedinPanel({ d }: { d: Stats["devLinkedin"] }) {
+  return (
+    <Panel
+      title="Your LinkedIn clicks"
+      note={`${d.clicks} ${d.clicks === 1 ? "click" : "clicks"} from ${d.visitors} ${d.visitors === 1 ? "visitor" : "visitors"} on "Developed by Garvit Dayal" in the footer. Only the master key sees this. Visitors are anonymous unless they also applied.`}
+    >
+      {d.list.length ? (
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Last click</th><th>Who</th><th>Source</th><th>Device</th><th>Clicks</th></tr>
+            </thead>
+            <tbody>
+              {d.list.map((c, i) => (
+                <tr key={i}>
+                  <td className="nowrap">{ago(c.at)}</td>
+                  <td>{c.applicant || <span className="muted">Anonymous visitor</span>}</td>
+                  <td className="cap">{c.source}</td>
+                  <td className="cap">{c.device}</td>
+                  <td>{c.clicks}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="muted">No clicks yet.</p>
+      )}
+    </Panel>
   );
 }
 
