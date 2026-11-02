@@ -95,6 +95,23 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .hero p { color: var(--grey); font-size: 1.2rem; max-width: 34ch; margin: 28px 0 36px; }
 .hero .mark { width: 100%; max-width: 440px; justify-self: end; }
 
+/* Apply section */
+#apply {
+  grid-template-columns: 1fr;
+}
+
+#apply .reveal {
+  width: 100%;
+}
+
+#apply .apply-description {
+  max-width: 100%;
+  width: 100%;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+
 /* the one load moment: the white pieces slot together, then the red bars land */
 .draw path { opacity: 0; animation: land 0.6s var(--ease) forwards; }
 .draw .mark-white path:nth-child(1) { --from: -60px, -54px; }

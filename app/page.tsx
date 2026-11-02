@@ -169,10 +169,15 @@ export default function Home() {
 
         <section className="wrap split" id="apply">
           <div className="reveal">
-            <h2>Apply</h2>
-            <p className="aside">Takes about two minutes. Fields marked optional can be skipped.</p>
+            {/* <h2>Apply</h2> */}
+            <h2>Form is Closed</h2>
+           <p>If you haven't filled out the registration form but are still interested in joining the Matrix Club, feel free to contact us directly on WhatsApp.</p>
+
+           <a href="https://wa.me/919171365853" target="_blank">Contact us on WhatsApp +91 9171365853</a>
+
+            {/* <p className="aside">Takes about two minutes. Fields marked optional can be skipped.</p> */}
           </div>
-          <ApplyForm />
+          {/* <ApplyForm /> */}
         </section>
       </main>
 
@@ -200,3 +205,4 @@ export default function Home() {
     </>
   );
 }
+
