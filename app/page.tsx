@@ -169,7 +169,12 @@ export default function Home() {
 
         <section className="wrap results" id="apply" aria-labelledby="results">
           <div className="results-head reveal">
-            <div className="feature-bars" aria-hidden="true" />
+            {/* poster-style slanted shapes in the corner */}
+            <svg className="results-corner" viewBox="0 0 600 360" aria-hidden="true">
+              <polygon points="300,0 600,0 600,230" fill="var(--red)" />
+              <polygon points="230,0 262,0 600,259 600,284" fill="#fff" />
+              <polygon points="150,0 190,0 600,314 600,345" fill="#6b0409" />
+            </svg>
             <p className="feature-tag">Recruitment &apos;26 results</p>
             <h2 id="results">Selected students</h2>
             <p className="results-lead">
@@ -195,6 +200,17 @@ export default function Home() {
           <div className="results-end reveal">
             <p className="results-congrats">Congratulations!</p>
             <p>Welcome to the MATRIX family.</p>
+            {/* poster-style band of slanted shapes along the bottom */}
+            <svg className="results-band" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+              <g stroke="#000" strokeWidth="6" strokeLinejoin="miter">
+                <polygon points="0,88 360,88 330,120 0,120" fill="#fff" />
+                <polygon points="130,38 360,38 334,62 104,62" fill="#6b0409" />
+                <polygon points="300,48 760,48 690,120 230,120" fill="var(--red)" />
+                <polygon points="820,26 1060,26 1030,52 790,52" fill="#fff" />
+                <polygon points="930,120 1200,0 1200,120" fill="var(--red)" />
+                <polygon points="700,96 960,96 940,120 676,120" fill="#fff" />
+              </g>
+            </svg>
           </div>
         </section>
       </main>
