@@ -1,4 +1,4 @@
-import ApplyForm from "./ApplyForm";
+import { RESULTS } from "@/lib/results";
 import Mark from "./Mark";
 import Reveal from "./Reveal";
 import Tracker from "./Tracker";
@@ -72,7 +72,7 @@ export default function Home() {
             <a href="#teams">Teams</a>
             <a href="#events">Events</a>
           </nav>
-          <a className="btn small line" href="#apply">Apply</a>
+          <a className="btn small line" href="#apply">Results</a>
         </div>
       </header>
 
@@ -84,7 +84,7 @@ export default function Home() {
               The skill enhancement community of Jabalpur Engineering College is taking in 1st and 2nd year students.
               No experience needed, just curiosity.
             </p>
-            <a className="btn" href="#apply">Apply to MATRIX</a>
+            <a className="btn" href="#apply">See the results</a>
           </div>
           <Mark className="mark" animate />
         </section>
@@ -163,21 +163,27 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <a className="btn" href="#apply">Apply and help build it</a>
+            <a className="btn" href="#apply">Meet the new team</a>
           </article>
         </section>
 
         <section className="wrap split" id="apply">
           <div className="reveal">
-            {/* <h2>Apply</h2> */}
-            <h2>Form is Closed</h2>
-            {/* <p>If you haven't filled out the registration form but are still interested in joining the Matrix Club, feel free to contact us directly on WhatsApp.</p> */}
-
-            {/* <a href="https://wa.me/919171365853" target="_blank">Contact us on WhatsApp +91 9171365853</a> */}
-
-            {/* <p className="aside">Takes about two minutes. Fields marked optional can be skipped.</p> */}
+            <h2>Results are out</h2>
+            <p className="aside">
+              Applications are closed. Congratulations to everyone selected! We&apos;ve emailed each of you your team
+              and next steps, so check your inbox and spam folder. Didn&apos;t get it? DM us on Instagram{" "}
+              <a href="https://www.instagram.com/matrix.jec" target="_blank" rel="noreferrer">@matrix.jec</a>.
+            </p>
           </div>
-          {/* <ApplyForm /> */}
+          <ul className="list">
+            {RESULTS.map((r) => (
+              <li className="reveal" key={r.team}>
+                <h3>{r.team}</h3>
+                <p>{r.names.join(" · ")}</p>
+              </li>
+            ))}
+          </ul>
         </section>
       </main>
 
