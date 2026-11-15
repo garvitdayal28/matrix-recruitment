@@ -154,13 +154,38 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .events li:last-child::after { display: none; }
 .events small { display: block; color: var(--red-hover); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
 
-/* recruitment results: one tile per name so names never break across lines */
-.names { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 8px; align-content: start; }
-.names span {
-  padding: 9px 12px; border: 1px solid var(--line); border-left: 2px solid var(--red); border-radius: 6px;
-  background: var(--raised); color: var(--ink); font-size: 0.95rem; line-height: 1.35;
+/* recruitment results: Vibe Coding-style header, one block per team, names as red-outlined pills */
+.results { padding: 0 16px 88px; border-top: 1px solid var(--line); }
+.results-head {
+  position: relative; overflow: hidden; isolation: isolate;
+  padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 6vw, 64px);
+  background: radial-gradient(90% 80% at 100% 0%, rgba(225, 9, 21, 0.14), transparent 60%);
 }
-@media (max-width: 800px) { .names { grid-template-columns: repeat(2, minmax(0, 1fr)); } .names span { font-size: 0.9rem; padding: 8px 10px; } }
+.results-head h2 { font-size: clamp(2.8rem, 9vw, 6.5rem); line-height: 0.95; letter-spacing: -0.04em; margin: 18px 0 24px; max-width: 9ch; }
+.results-lead { color: #d4d4d8; font-size: 1.15rem; max-width: 50ch; }
+.results-lead a { color: var(--ink); text-decoration-color: var(--red); }
+.results-team { padding: 44px 0; border-top: 1px solid var(--line); }
+.results-team-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
+.results-team small { display: block; color: var(--red-hover); font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+.results-team h3 { font-size: clamp(1.7rem, 3.8vw, 2.6rem); line-height: 1; letter-spacing: -0.03em; }
+.results-count { color: var(--grey); white-space: nowrap; }
+.results-count b { color: var(--ink); font-size: 1.6rem; font-weight: 800; margin-right: 4px; }
+.pills { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 10px; }
+.pills li {
+  padding: 11px 18px; border: 1.5px solid rgba(225, 9, 21, 0.55); border-radius: 999px;
+  background: rgba(225, 9, 21, 0.06); text-align: center; font-weight: 600; font-size: 0.98rem; line-height: 1.3;
+  transition: background 0.2s, border-color 0.2s;
+}
+.pills li:hover { background: rgba(225, 9, 21, 0.16); border-color: var(--red); }
+.results-end { padding: 64px 0 0; border-top: 1px solid var(--line); text-align: center; }
+.results-end::before { content: ""; display: block; width: 56px; height: 6px; margin: 0 auto 32px; background: var(--red); transform: rotate(-38deg); }
+.results-congrats { font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 800; font-variation-settings: "wdth" 125; letter-spacing: -0.04em; line-height: 1; }
+.results-end p + p { color: var(--grey); font-size: 1.15rem; margin-top: 14px; }
+@media (max-width: 800px) {
+  .results-team-head { flex-direction: column; align-items: flex-start; }
+  .pills { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .pills li { padding: 10px 8px; font-size: 0.88rem; }
+}
 
 /* Vibe Coding 2.0 feature: spans the whole events section */
 .feature {
@@ -176,12 +201,12 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
   transform: rotate(-38deg); opacity: 0.9; transition: transform 1.1s var(--ease) 0.15s, opacity 1.1s var(--ease) 0.15s;
 }
 /* bars slide in from opposite sides when the block is revealed */
-.js .feature:not(.is-in) .feature-bars::before { transform: rotate(-38deg) translateX(140px); opacity: 0; }
-.js .feature:not(.is-in) .feature-bars::after { transform: rotate(-38deg) translateX(-140px); opacity: 0; }
+.js .feature:not(.is-in) .feature-bars::before, .js .results-head:not(.is-in) .feature-bars::before { transform: rotate(-38deg) translateX(140px); opacity: 0; }
+.js .feature:not(.is-in) .feature-bars::after, .js .results-head:not(.is-in) .feature-bars::after { transform: rotate(-38deg) translateX(-140px); opacity: 0; }
 .feature-bars::before { top: 70px; }
 .feature-bars::after { top: 200px; right: 30px; width: 300px; opacity: 0.45; }
-.feature:hover .feature-bars::before { transform: rotate(-38deg) translateX(-14px); }
-.feature:hover .feature-bars::after { transform: rotate(-38deg) translateX(14px); }
+.feature:hover .feature-bars::before, .results-head:hover .feature-bars::before { transform: rotate(-38deg) translateX(-14px); }
+.feature:hover .feature-bars::after, .results-head:hover .feature-bars::after { transform: rotate(-38deg) translateX(14px); }
 .feature h2 { font-size: clamp(2.8rem, 9vw, 7rem); line-height: 0.95; letter-spacing: -0.04em; margin: 18px 0 24px; max-width: 9ch; }
 .feature-lead { color: #d4d4d8; font-size: 1.2rem; max-width: 46ch; }
 /* label marked with a short slanted bar, the same stroke as the logo */

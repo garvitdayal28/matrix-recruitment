@@ -167,28 +167,35 @@ export default function Home() {
           </article>
         </section>
 
-        <section className="wrap split" id="apply">
-          <div className="reveal">
-            <h2>Results are out</h2>
-            <p className="aside">
-              Applications are closed. Congratulations to everyone selected! We&apos;ve emailed each of you your team
-              and next steps, so check your inbox and spam folder. Didn&apos;t get it? DM us on Instagram{" "}
+        <section className="wrap results" id="apply" aria-labelledby="results">
+          <div className="results-head reveal">
+            <div className="feature-bars" aria-hidden="true" />
+            <p className="feature-tag">Recruitment &apos;26 results</p>
+            <h2 id="results">Selected students</h2>
+            <p className="results-lead">
+              Applications are closed. We&apos;ve emailed everyone selected their team and next steps, so check your
+              inbox and spam folder. Didn&apos;t get it? DM us on Instagram{" "}
               <a href="https://www.instagram.com/matrix.jec" target="_blank" rel="noreferrer">@matrix.jec</a>.
             </p>
           </div>
-          <ul className="list events">
-            {RESULTS.map((r) => (
-              <li className="reveal" key={r.team}>
+          {RESULTS.map((r) => (
+            <div className="results-team reveal" key={r.team}>
+              <div className="results-team-head">
                 <div>
-                  <small>{r.names.length} selected</small>
+                  <small>Selected for</small>
                   <h3>{r.team}</h3>
                 </div>
-                <div className="names">
-                  {r.names.map((n) => <span key={n}>{n}</span>)}
-                </div>
-              </li>
-            ))}
-          </ul>
+                <p className="results-count"><b>{r.names.length}</b> members</p>
+              </div>
+              <ul className="pills">
+                {r.names.map((n) => <li key={n}>{n}</li>)}
+              </ul>
+            </div>
+          ))}
+          <div className="results-end reveal">
+            <p className="results-congrats">Congratulations!</p>
+            <p>Welcome to the MATRIX family.</p>
+          </div>
         </section>
       </main>
 
