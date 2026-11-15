@@ -174,13 +174,19 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .results-team h3 { font-size: clamp(1.7rem, 3.8vw, 2.6rem); line-height: 1; letter-spacing: -0.03em; }
 .results-count { color: var(--grey); white-space: nowrap; }
 .results-count b { color: var(--ink); font-size: 1.6rem; font-weight: 800; margin-right: 4px; }
-.pills { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 10px; }
+.pills { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; counter-reset: n; }
 .pills li {
-  padding: 11px 18px; border: 1.5px solid rgba(225, 9, 21, 0.55); border-radius: 999px;
-  background: rgba(225, 9, 21, 0.06); text-align: center; font-weight: 600; font-size: 0.98rem; line-height: 1.3;
-  transition: background 0.2s, border-color 0.2s;
+  display: inline-flex; align-items: center; gap: 10px; padding: 7px 18px 7px 7px;
+  border: 1px solid var(--field); border-radius: 999px; background: var(--raised);
+  font-weight: 600; font-size: 0.98rem; line-height: 1.3; transition: background 0.2s, border-color 0.2s;
 }
-.pills li:hover { background: rgba(225, 9, 21, 0.16); border-color: var(--red); }
+/* red number badge, like a roster: 01, 02, ... */
+.pills li::before {
+  content: counter(n, decimal-leading-zero); counter-increment: n;
+  display: grid; place-items: center; min-width: 30px; height: 30px; padding: 0 6px; border-radius: 999px;
+  background: rgba(225, 9, 21, 0.16); color: var(--red-hover); font-size: 0.78rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.pills li:hover { border-color: var(--red); background: rgba(225, 9, 21, 0.08); }
 .results-end { padding: 64px 0 0; position: relative; border-top: 1px solid var(--line); text-align: center; }
 .results-end::before { content: ""; display: block; width: 56px; height: 6px; margin: 0 auto 32px; background: var(--red); transform: rotate(-38deg); }
 .results-congrats { font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 800; font-variation-settings: "wdth" 125; letter-spacing: -0.04em; line-height: 1; }
@@ -188,8 +194,9 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .results-band { display: block; width: 100%; height: clamp(64px, 10vw, 120px); margin-top: 48px; }
 @media (max-width: 800px) {
   .results-team-head { flex-direction: column; align-items: flex-start; }
-  .pills { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .pills li { padding: 10px 8px; font-size: 0.88rem; }
+  .pills { gap: 8px; }
+  .pills li { gap: 8px; padding: 5px 14px 5px 5px; font-size: 0.9rem; }
+  .pills li::before { min-width: 26px; height: 26px; font-size: 0.72rem; }
 }
 
 /* Vibe Coding 2.0 feature: spans the whole events section */
