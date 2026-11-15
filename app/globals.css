@@ -154,7 +154,7 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .events li:last-child::after { display: none; }
 .events small { display: block; color: var(--red-hover); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
 
-/* recruitment results: poster-style header shapes, one block per team, names as a roster
+/* recruitment results: poster-style header shapes, one block per team, names as a roster */
 .results { padding: 0 16px 88px; border-top: 1px solid var(--line); }
 .results-head {
   position: relative; overflow: hidden; isolation: isolate;
