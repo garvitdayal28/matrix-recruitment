@@ -194,7 +194,7 @@ export default function Home() {
               </div>
               <ul className="roster">
                 {r.members.map((m) => (
-                  <li key={m.name}>
+                  <li className="reveal" key={m.name}>
                     <span>{m.name}</span>
                     <small>{m.branch}</small>
                   </li>
@@ -206,7 +206,7 @@ export default function Home() {
             <p className="results-congrats">Congratulations!</p>
             <p>Welcome to the MATRIX family.</p>
             {/* poster-style band of slanted shapes along the bottom */}
-            <svg className="results-band" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+            <svg className="results-band" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
               <g stroke="#000" strokeWidth="6" strokeLinejoin="miter">
                 <polygon points="0,88 360,88 330,120 0,120" fill="#fff" />
                 <polygon points="130,38 360,38 334,62 104,62" fill="#6b0409" />

@@ -187,16 +187,20 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
   transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
 }
 .roster li:hover::after { transform: scaleX(1); }
+/* same as the Teams list: the red line draws itself once the row has faded in */
+.roster li.is-in::after { transform: scaleX(1); transition: transform 1s var(--ease) calc(var(--d, 0ms) + 0.35s); }
 .roster span { font-weight: 600; }
 .roster small { color: var(--grey); font-size: 0.85rem; letter-spacing: 0.04em; white-space: nowrap; }
 .results-end { padding: 64px 0 0; position: relative; border-top: 1px solid var(--line); text-align: center; }
 .results-end::before { content: ""; display: block; width: 56px; height: 6px; margin: 0 auto 32px; background: var(--red); transform: rotate(-38deg); }
 .results-congrats { font-size: clamp(1.75rem, 8.4vw, 5rem); overflow-wrap: anywhere; font-weight: 800; font-variation-settings: "wdth" 125; letter-spacing: -0.04em; line-height: 1; }
 .results-end p + p { color: var(--grey); font-size: 1.15rem; margin-top: 14px; }
-.results-band { display: block; width: 100%; height: clamp(64px, 10vw, 120px); margin-top: 48px; }
+/* whole design scales to the width (never cropped); runs edge to edge on phones */
+.results-band { display: block; width: 100%; height: auto; aspect-ratio: 10 / 1; margin-top: 48px; }
 @media (max-width: 800px) {
   .results-team-head { flex-direction: column; align-items: flex-start; }
   .roster li { padding: 12px 0; }
+  .results-band { width: calc(100% + 32px); margin: 40px -16px 0; }
 }
 
 /* Vibe Coding 2.0 feature: spans the whole events section */
@@ -502,7 +506,7 @@ td.cap { text-transform: capitalize; }
 @media (hover: none) {
   .drop-hint { display: none; }
   /* a tap leaves :hover stuck on touch screens, so undo the hover-only effects */
-  .list li:hover::after { transform: scaleX(0); }
+  .list li:hover::after, .roster li:hover::after { transform: scaleX(0); }
   .feature:hover .feature-bars::before, .feature:hover .feature-bars::after { transform: rotate(-38deg); }
   .brand:hover svg { transform: none; }
   .btn:hover { background: var(--red); border-color: var(--red); }
@@ -511,7 +515,7 @@ td.cap { text-transform: capitalize; }
   /* tap feedback stands in for hover */
   .btn:active { background: var(--red-hover); border-color: var(--red-hover); }
   .btn.line:active { background: var(--red); border-color: var(--red); }
-  .list li:active::after { transform: scaleX(1); transition-duration: 0.25s; }
+  .list li:active::after, .roster li:active::after { transform: scaleX(1); transition-duration: 0.25s; }
   .choice:active { border-color: var(--grey); }
   .select-list li:active { background: #2a2a2e; }
   .drop:active { border-color: var(--red); background: rgba(225, 9, 21, 0.08); }
