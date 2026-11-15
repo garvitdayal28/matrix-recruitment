@@ -154,6 +154,14 @@ h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 .events li:last-child::after { display: none; }
 .events small { display: block; color: var(--red-hover); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
 
+/* recruitment results: one tile per name so names never break across lines */
+.names { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 8px; align-content: start; }
+.names span {
+  padding: 9px 12px; border: 1px solid var(--line); border-left: 2px solid var(--red); border-radius: 6px;
+  background: var(--raised); color: var(--ink); font-size: 0.95rem; line-height: 1.35;
+}
+@media (max-width: 800px) { .names { grid-template-columns: repeat(2, minmax(0, 1fr)); } .names span { font-size: 0.9rem; padding: 8px 10px; } }
+
 /* Vibe Coding 2.0 feature: spans the whole events section */
 .feature {
   grid-column: 1 / -1; position: relative; overflow: hidden; isolation: isolate;

@@ -176,11 +176,16 @@ export default function Home() {
               <a href="https://www.instagram.com/matrix.jec" target="_blank" rel="noreferrer">@matrix.jec</a>.
             </p>
           </div>
-          <ul className="list">
+          <ul className="list events">
             {RESULTS.map((r) => (
               <li className="reveal" key={r.team}>
-                <h3>{r.team}</h3>
-                <p>{r.names.join(" · ")}</p>
+                <div>
+                  <small>{r.names.length} selected</small>
+                  <h3>{r.team}</h3>
+                </div>
+                <div className="names">
+                  {r.names.map((n) => <span key={n}>{n}</span>)}
+                </div>
               </li>
             ))}
           </ul>
