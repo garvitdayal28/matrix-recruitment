@@ -178,8 +178,8 @@ export default function Home() {
             <p className="feature-tag">Recruitment &apos;26 results</p>
             <h2 id="results">Selected students</h2>
             <p className="results-lead">
-              Applications are closed. We&apos;ve emailed everyone selected their team and next steps, so check your
-              inbox and spam folder. Didn&apos;t get it? DM us on Instagram{" "}
+              Applications are closed. We&apos;ve emailed everyone selected their team and the link to join the members&apos;
+              WhatsApp group, so check your inbox and spam folder. Didn&apos;t get it? DM us on Instagram{" "}
               <a href="https://www.instagram.com/matrix.jec" target="_blank" rel="noreferrer">@matrix.jec</a>.
             </p>
           </div>
