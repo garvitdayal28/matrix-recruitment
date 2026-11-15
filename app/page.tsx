@@ -190,10 +190,15 @@ export default function Home() {
                   <small>Selected for</small>
                   <h3>{r.team}</h3>
                 </div>
-                <p className="results-count"><b>{r.names.length}</b> members</p>
+                <p className="results-count"><b>{r.members.length}</b> members</p>
               </div>
-              <ul className="pills">
-                {r.names.map((n) => <li key={n}>{n}</li>)}
+              <ul className="roster">
+                {r.members.map((m) => (
+                  <li key={m.name}>
+                    <span>{m.name}</span>
+                    <small>{m.branch}</small>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
